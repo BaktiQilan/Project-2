@@ -1,8 +1,8 @@
 # Project-2 
 
-Project-2 is a project from collage, what contain in this repository is:
+Project-2 is a project from college, what contain in this repository is:
   - Simple warehouse goods input
-  - Arduino code for arduino selector using arduino
+  - Arduino code for arduino selector using arduino (see my blog for more detail(sometime maybe))
 
 # Progress:
   - Initial init(just the interface)
