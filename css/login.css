@@ -1,0 +1,114 @@
+
+
+
+/*//////////////////////////////////////////////////////////////////
+[ RESTYLE TAG ]*/
+
+* {
+	margin: 0px; 
+	padding: 0px; 
+	box-sizing: border-box;
+}
+
+body, html {
+	height: 100%;
+}
+
+/*---------------------------------------------*/
+.limiter {
+  width: 100%;
+  margin: 0 auto;
+}
+
+#particles-js {
+  width: 100%;  
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background: #9053c7;
+  background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: linear-gradient(-135deg, #c850c0, #4158d0);
+}
+
+.margin-luar {
+  position: absolute;
+  width: 960px;
+  height: 470px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 50px 50px 50px 50px;
+}
+
+
+/*------------------------------------------------------------------
+[  ]*/
+.barang-form {
+  margin: 0 auto;
+  width: 800px;
+}
+
+.barang-title {
+  font-family:'Segoe UI', sans-serif;
+  font-size: 24px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+  width: 100%;
+  display: block;
+  padding-bottom: 54px;
+}
+.login100-pic {
+  margin:auto;
+}
+.user-title{
+  position: absolute;
+  width: 100px;
+  border-radius: 10px;
+  overflow: hidden;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 177px 130px 33px 95px;
+}
+
+/*LOGIN-------------------------------------------------*/
+.margin-luar-login{
+  position: absolute;
+  width: 500px;
+  height: 470px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 50px 50px 50px 50px;
+}
+.login-form{
+  padding: 50px 50px 50px 50px;
+  margin: 0 auto;
+  width: 400px;
+  height: 400px;
+}
+
+.login-title{
+  font-family:'Segoe UI', sans-serif;
+  font-size: 24px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+  width: 100%;
+  display: block;
+  padding-bottom: 54px;
+}
