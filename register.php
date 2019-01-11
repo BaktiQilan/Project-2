@@ -61,6 +61,19 @@
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Input Barang</span></a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="input.php">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Input Barang</span></a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="users.php">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Data User</span></a>
+        </li>
+
         <li class="nav-item active">
           <a class="nav-link" href="register.php">
             <i class="fas fa-fw fa-user-plus"></i>
@@ -75,7 +88,7 @@
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a href="index.html">Dashboard</a>
+              <a href="index.html">Home</a>
             </li>
             <li class="breadcrumb-item active">Tambah User</li>
           </ol>
@@ -86,17 +99,18 @@
               <i class="fas fa-fw fa-user-plus"></i> Tambah User</div>
             <div class="card-body">
             <?php
-                $username = $_POST["username"];
-                $password = $_POST["password"];
-                $sqlstr="insert into users (username, password) Values ('$username','$password')";
-                $hasil=@mysqli_query($conn,$sqlstr);
-                if($hasil)
-                {
-                    echo ("User berhasil dibuat!");
-                }else
-                {
-                    echo("Data gagal disimpan!<br>");
+            if(isset($_POST['submit'])){
+                if(!empty($_POST["username"]) && !empty($_POST["password"])){
+                    $submit = mysqli_query($conn,"INSERT INTO users (username, password, tanggal) VALUES ('".$_POST["username"]."','".$_POST["password"]."', SYSDATE())");
+                    if($submit){
+                        echo '<div class="alert alert-primary" role="alert">User berhasil dibuat!</div>';
+                    }else{
+                        echo '<div class="alert alert-danger" role="alert">User gagal dibuat!</div>';
+                    }
+                }else{
+                    echo '<div class="alert alert-danger" role="alert">tolong diisi semua</div';
                 }
+            }
             ?>
             <form action="" method="post">
                 <div class="input-group mb-3">
@@ -111,7 +125,8 @@
                     </div>
                     <input type="password" class="form-control" name="password">
                 </div>
-            <input type="submit" value="Input" class="btn btn-primary">
+            <input type="submit" name="submit" value="Input" class="btn btn-primary">
+            </form>
             </div>
           </div>
         </div>

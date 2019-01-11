@@ -61,11 +61,19 @@
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Input Barang</span></a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link" href="data.php">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Data Barang</span></a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="users.php">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Data User</span></a>
+        </li>
+
         <li class="nav-item">
           <a class="nav-link" href="register.php">
             <i class="fas fa-fw fa-user-plus"></i>
@@ -80,7 +88,7 @@
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a href="index.html">Dashboard</a>
+              <a href="index.html">Home</a>
             </li>
             <li class="breadcrumb-item active">Input Barang</li>
           </ol>
@@ -90,27 +98,53 @@
             <div class="card-header">
               <i class="fas fa-box"></i> Input Barang</div>
             <div class="card-body">
+            <?php
+            if(isset($_POST['submit'])){
+              if(!empty($_POST['namabarang']) && !empty($_POST['jumlahbarang']) && !empty(['rak'])){
+                $submit = mysqli_query($conn, "INSERT INTO barang (namabarang, tanggalmasuk, jumlah, rak) VALUES ('".$_POST['namabarang']."', SYSDATE(),'".$_POST['jumlahbarang']."', '".$_POST['rak']."')");
+                if($submit){
+                  echo '<div class="alert alert-primary" role="alert">Data Barang Telah Ditambahkan</div>';
+                }else{
+                  echo '<div class="alert alert-danger" role="alert">Data Barang Gagal Ditambahkan</div>';
+                }
+              }else{
+                echo '<div class="alert alert-danger" role="alert">Tolong datanya diisi semua</div>'; 
+              }
+            }
+            ?>
+
+            <form action="" method="POST" onsubmit="generate()">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Nama Barang</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">Nama Barang:</span>
                     </div>
                     <input type="text" class="form-control" name="namabarang">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Jumlah Barang</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">Jumlah Barang:</span>
                     </div>
-                    <input type="text" class="form-control" name="jenisbarang">
+                    <input type="text" class="form-control" name="jumlahbarang">
                 </div>
-            <button class="btn btn-primary" onclick="generate()">Input</button>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Simpan Pada Rak:</span>
+                    <select class="form-control" name="rak">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                    </select>
+                    </div>
+                </div>
+            <input type="submit" name="submit" value="Input" class="btn btn-primary" onclick="">
+            </form>
             </div>
           </div>
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-barcode"></i> Barcode</div>
             <div class="card-body">
-            <img id="barcode"  alt="Waiting to generate...." class="rounded" onerror="this.style.opacity='0'">
-            </div>
+            <img id="barcode"  alt="Waiting to generate...." class="rounded"">
           </div>
           
         </div>
