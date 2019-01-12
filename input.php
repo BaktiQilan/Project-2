@@ -100,7 +100,7 @@
             <div class="card-body">
             <?php
             if(isset($_POST['submit'])){
-              if(!empty($_POST['namabarang']) && !empty($_POST['jumlahbarang']) && !empty(['rak'])){
+              if(!empty($_POST['namabarang']) && !empty($_POST['jumlahbarang']) && !empty($_POST['rak'])){
                 $submit = mysqli_query($conn, "INSERT INTO barang (namabarang, tanggalmasuk, jumlah, rak) VALUES ('".$_POST['namabarang']."', SYSDATE(),'".$_POST['jumlahbarang']."', '".$_POST['rak']."')");
                 if($submit){
                   echo '<div class="alert alert-primary" role="alert">Data Barang Telah Ditambahkan</div>';
@@ -113,7 +113,7 @@
             }
             ?>
 
-            <form action="" method="POST" onsubmit="generate()">
+            <form action="" method="POST">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-default">Nama Barang:</span>
@@ -144,7 +144,13 @@
             <div class="card-header">
               <i class="fas fa-barcode"></i> Barcode</div>
             <div class="card-body">
-            <img id="barcode"  alt="Waiting to generate...." class="rounded"">
+            <?php
+            if(isset($_POST['submit'])){
+              $textbarcode = strval($_POST['rak']) . $_POST['namabarang'];
+              echo "<div class='text-center'><img alt='Barcode' class='img-fluid' src='vendor/php-barcode/barcode.php?codetype=Code39&size=40&text=".$textbarcode."&print=true'/></div>";
+            }
+            ?>
+            </div>
           </div>
           
         </div>
@@ -198,9 +204,5 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>
-
-      <!-- Barcode Stuff -->
-        <script src="js/JsBarcode.all.min.js"></script>
-        <script src="js/barcode.js"></script>
 </body>
 </html>
