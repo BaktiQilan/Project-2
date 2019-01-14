@@ -1,8 +1,17 @@
-<?php
-    include('inc/config.php');
+<?php 
     session_start();
-    if(!isset($_SESSION["sess_user"])){
-        header("Location: login.php");
+    include_once 'inc/class.user.php';
+    $user = new User();
+
+    $id = $_SESSION['id'];
+
+    if (!$user->get_session()){
+       header("location:login.php");
+    }
+
+    if (isset($_GET['q'])){
+        $user->user_logout();
+        header("location:login.php");
     }
 ?>
 <!DOCTYPE html>
@@ -34,12 +43,12 @@
 
       <!-- Navbar Admin Name -->
       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-          <a class="text-white">Welcome, <?=$_SESSION['sess_user'];?>!</a>
+          <a class="text-white">Welcome, <?=$user->get_fullname($id);?>!</a>
       </form>
 
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
-        <a href="logout.php"><button type="button" class="btn btn-primary btn-sm">Logout</button></a>
+        <a href="users.php?q=logout"><button type="button" class="btn btn-primary btn-sm">Logout</button></a>
       </ul>
 
     </nav>
@@ -109,18 +118,9 @@
                     </tr>
                   </thead>
                   <tbody>
-                  <?php $sqlstr="select id, username, tanggal from users";
-                    $hasil=@mysqli_query($conn,$sqlstr);
-                    while($row=mysqli_fetch_array($hasil)):?>
-                    <tr>
-                        <td><?php echo $row["id"]; ?></td>
-                        <td><?php echo $row["username"]; ?></td> 
-                        <td><?php echo $row["tanggal"];?></td>
-                    </tr>
+                    <?php $user->get_user_data(); ?>
                   </tbody>
-                  <?php endwhile;?> 
                 </table>
-                <?php @mysqli_close($conn);?>
               </div>
             </div>
             <div class="card-footer small"></div>

@@ -1,8 +1,17 @@
-<?php
-    require ("inc/config.php");
+<?php 
     session_start();
-    if(!isset($_SESSION["sess_user"])){
-        header("Location: login.php");
+    include_once 'inc/class.user.php';
+    $user = new User();
+
+    $id = $_SESSION['id'];
+
+    if (!$user->get_session()){
+       header("location:login.php");
+    }
+
+    if (isset($_GET['q'])){
+        $user->user_logout();
+        header("location:login.php");
     }
 ?>
 <!DOCTYPE html>
@@ -36,12 +45,12 @@
 
       <!-- Navbar Search -->
       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-        <a class="text-white">Welcome, <?=$_SESSION['sess_user'];?>!</a>
+        <a class="text-white">Welcome, <?php $user->get_fullname($id); ?>!</a>
       </form>
 
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
-          <a href="logout.php"><button type="button" class="btn btn-primary btn-sm">Logout</button></a>
+          <a href="register.php?q=logout"><button type="button" class="btn btn-primary btn-sm">Logout</button></a>
       </ul>
     </nav>
 
@@ -63,9 +72,9 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="input.php">
+          <a class="nav-link" href="data.php">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Input Barang</span></a>
+            <span>Data Barang</span></a>
         </li>
 
         <li class="nav-item">
@@ -99,17 +108,16 @@
               <i class="fas fa-fw fa-user-plus"></i> Tambah User</div>
             <div class="card-body">
             <?php
-            if(isset($_POST['submit'])){
-                if(!empty($_POST["username"]) && !empty($_POST["password"])){
-                    $submit = mysqli_query($conn,"INSERT INTO users (username, password, tanggal) VALUES ('".$_POST["username"]."','".$_POST["password"]."', SYSDATE())");
-                    if($submit){
-                        echo '<div class="alert alert-primary" role="alert">User berhasil dibuat!</div>';
-                    }else{
-                        echo '<div class="alert alert-danger" role="alert">User gagal dibuat!</div>';
-                    }
-                }else{
-                    echo '<div class="alert alert-danger" role="alert">tolong diisi semua</div';
-                }
+            if (isset($_POST['submit'])){
+              extract($_POST);
+              $register = $user->reg_user($username, $password);
+              if ($register) {
+                  // Registration Success
+                  echo '<div class="alert alert-primary" role="alert">User berhasil dibuat!</div>';
+              } else {
+                  // Registration Failed
+                  echo '<div class="alert alert-danger" role="alert">User gagal dibuat!</div>';
+              }
             }
             ?>
             <form action="" method="post">

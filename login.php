@@ -1,5 +1,7 @@
-<?php
-    include ("inc/config.php");
+<?php 
+  session_start();
+  include_once 'inc/class.user.php';
+  $user = new User();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,37 +19,14 @@
         <div class="login-form">
             <span class="login-title">Admin Login</span>
             <?php
-              if(isset($_POST["submit"])){
-                if(!empty($_POST['username']) && !empty($_POST['password'])){
-                  $user = $_POST['username'];
-                  $pass = $_POST['password'];
-                  //Selecting database
-                  $query = mysqli_query($conn, "SELECT * FROM users WHERE username='".$user."' AND password='".$pass."'");
-                  $numrows = mysqli_num_rows($query);
-                  if($numrows !=0)
-                  {
-                    while($row = mysqli_fetch_assoc($query))
-                    {
-                      $dbusername=$row['username'];
-                      $dbpassword=$row['password'];
-                    }
-                    if($user == $dbusername && $pass == $dbpassword)
-                    {
-                      session_start();
-                      $_SESSION['sess_user']=$user;
-                      //Redirect Browser
-                      header("Location:index.php");
-                    }
-                  }
-                  else
-                  {
+              if (isset($_POST['submit'])) { 
+                extract($_POST);   
+                  $login = $user->check_login($username, $password);
+                  if ($login) {
+                    header("location:index.php");
+                  } else {
                     echo '<div class="alert alert-warning"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>Warning!</strong> Invalid Username or Password!</div>';
                   }
-                }
-                else
-                {
-                  echo "Required All fields!";
-                }
               }
             ?>
             <form action="" method="post">            

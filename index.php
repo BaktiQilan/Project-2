@@ -1,8 +1,19 @@
-<?php
-    include("inc/config.php");
+<?php 
     session_start();
-    if(!isset($_SESSION["sess_user"])){
-        header("Location: login.php");
+    include_once 'inc/class.user.php';
+    include_once 'inc/class.data.php';
+    $user = new User();
+    $data = new Data();
+
+    $id = $_SESSION['id'];
+
+    if (!$user->get_session()){
+       header("location:login.php");
+    }
+
+    if (isset($_GET['q'])){
+        $user->user_logout();
+        header("location:login.php");
     }
 ?>
 <!DOCTYPE html>
@@ -34,12 +45,12 @@
 
       <!-- Navbar Admin Name -->
       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-          <a class="text-white">Welcome, <?=$_SESSION['sess_user'];?>!</a>
+          <a class="text-white">Welcome, <?php $user->get_fullname($id); ?>!</a>
       </form>
 
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
-        <a href="logout.php"><button type="button" class="btn btn-primary btn-sm">Logout</button></a>
+        <a href="index.php?q=logout"><button type="button" class="btn btn-primary btn-sm">Logout</button></a>
       </ul>
 
     </nav>
@@ -102,13 +113,7 @@
                     <i class="fas fa-fw fa-warehouse"></i>
                   </div>
                   <div class="mr-5">
-                  <?php
-                    //Hitung barang
-                    if ($querybarang = $conn->query("SELECT kodebarang FROM barang")) { 
-                        $barang_cnt = $querybarang->num_rows;
-                        echo $barang_cnt;
-                        $querybarang->close();
-                    }?> Jumlah barang!</div>
+                  <?php $data->check_data_barang(); ?> Jumlah barang!</div>
                 </div>
                 <a class="card-footer text-white clearfix small z-1" href="data.php">
                   <span class="float-left">View Details</span>
@@ -125,13 +130,7 @@
                     <i class="fas fa-fw fa-users"></i>
                   </div>
                   <div class="mr-5">
-                  <?php
-                    //Hitung user
-                    if ($queryusers = $conn->query("SELECT id FROM users")) { 
-                        $users_cnt = $queryusers->num_rows;
-                        echo $users_cnt;
-                        $queryusers->close();
-                    }?> Jumlah user!</div>
+                  <?php $data->check_data_user(); ?> Jumlah user!</div>
                 </div>
                 <a class="card-footer text-white clearfix small z-1" href="users.php">
                   <span class="float-left">View Details</span>
@@ -157,20 +156,12 @@
                         <th>Nama Barang</th>
                         <th>Tanggal Masuk</th>
                         <th>Jumlah</th>
+                        <th>Rak</th>
                     </tr>
                   </thead>
                   <tbody>
-                  <?php $sqlstr="select *from barang";
-                    $hasil=@mysqli_query($conn,$sqlstr);
-                    while($row=mysqli_fetch_array($hasil)):?>
-                    <tr>
-                        <td><?php echo $row["kodebarang"]; ?></td>
-                        <td><?php echo $row["namabarang"]; ?></td>
-                        <td><?php echo $row["tanggalmasuk"]; ?></td>
-                        <td><?php echo $row["jumlah"]; ?></td>  
-                    </tr>
+                    <?php $data->get_data_barang();?>
                   </tbody>
-                  <?php endwhile;?> 
                   </table>
               </div>
             </div>

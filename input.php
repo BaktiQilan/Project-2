@@ -1,8 +1,19 @@
 <?php
-    require ("inc/config.php");
     session_start();
-    if(!isset($_SESSION["sess_user"])){
-        header("Location: login.php");
+    include_once 'inc/class.user.php';
+    include_once 'inc/class.data.php';
+    $user = new User();
+    $data = new Data();
+
+    $id = $_SESSION['id'];
+
+    if (!$user->get_session()){
+       header("location:login.php");
+    }
+
+    if (isset($_GET['q'])){
+        $user->user_logout();
+        header("location:login.php");
     }
 ?>
 <!DOCTYPE html>
@@ -36,12 +47,12 @@
 
       <!-- Navbar Search -->
       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-        <a class="text-white">Welcome, <?=$_SESSION['sess_user'];?>!</a>
+        <a class="text-white">Welcome, <?php $user->get_fullname($id); ?>!</a>
       </form>
 
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
-          <a href="logout.php"><button type="button" class="btn btn-primary btn-sm">Logout</button></a>
+          <a href="input.php?q=logout"><button type="button" class="btn btn-primary btn-sm">Logout</button></a>
       </ul>
     </nav>
 
@@ -99,20 +110,16 @@
               <i class="fas fa-box"></i> Input Barang</div>
             <div class="card-body">
             <?php
-            if(isset($_POST['submit'])){
-              if(!empty($_POST['namabarang']) && !empty($_POST['jumlahbarang']) && !empty($_POST['rak'])){
-                $submit = mysqli_query($conn, "INSERT INTO barang (namabarang, tanggalmasuk, jumlah, rak) VALUES ('".$_POST['namabarang']."', SYSDATE(),'".$_POST['jumlahbarang']."', '".$_POST['rak']."')");
-                if($submit){
-                  echo '<div class="alert alert-primary" role="alert">Data Barang Telah Ditambahkan</div>';
-                }else{
-                  echo '<div class="alert alert-danger" role="alert">Data Barang Gagal Ditambahkan</div>';
-                }
-              }else{
-                echo '<div class="alert alert-danger" role="alert">Tolong datanya diisi semua</div>'; 
+            if (isset($_POST['submit'])){
+              extract($_POST);
+              $inputdata = $data->input_barang($namabarang, $jumlahbarang, $rak);
+              if ($inputdata) {
+                echo '<div class="alert alert-primary" role="alert">Data Barang Telah Ditambahkan</div>';
+              } else {
+                echo '<div class="alert alert-danger" role="alert">Data Barang Gagal Ditambahkan</div>';
               }
             }
             ?>
-
             <form action="" method="POST">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">

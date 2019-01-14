@@ -1,8 +1,19 @@
-<?php
-    include('inc/config.php');
+<?php 
     session_start();
-    if(!isset($_SESSION["sess_user"])){
-        header("Location: login.php");
+    include_once 'inc/class.user.php';
+    include_once 'inc/class.data.php';
+    $user = new User();
+    $data = new Data();
+
+    $id = $_SESSION['id'];
+
+    if (!$user->get_session()){
+       header("location:login.php");
+    }
+
+    if (isset($_GET['q'])){
+        $user->user_logout();
+        header("location:login.php");
     }
 ?>
 <!DOCTYPE html>
@@ -34,12 +45,12 @@
 
       <!-- Navbar Admin Name -->
       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-          <a class="text-white">Welcome, <?=$_SESSION['sess_user'];?>!</a>
+          <a class="text-white">Welcome, <?=$user->get_fullname($id);?>!</a>
       </form>
 
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
-        <a href="logout.php"><button type="button" class="btn btn-primary btn-sm">Logout</button></a>
+        <a href="data.php?q=logout"><button type="button" class="btn btn-primary btn-sm">Logout</button></a>
       </ul>
 
     </nav>
@@ -107,22 +118,13 @@
                         <th>Nama Barang</th>
                         <th>Tanggal Masuk</th>
                         <th>Jumlah</th>
+                        <th>Rak</th>
                     </tr>
                   </thead>
                   <tbody>
-                  <?php $sqlstr="select *from barang";
-                    $hasil=@mysqli_query($conn,$sqlstr);
-                    while($row=mysqli_fetch_array($hasil)):?>
-                    <tr>
-                        <td><?php echo $row["kodebarang"]; ?></td>
-                        <td><?php echo $row["namabarang"]; ?></td>
-                        <td><?php echo $row["tanggalmasuk"]; ?></td>
-                        <td><?php echo $row["jumlah"]; ?></td>  
-                    </tr>
+                    <?php $data->get_data_barang(); ?>
                   </tbody>
-                  <?php endwhile;?> 
                 </table>
-                <?php @mysqli_close($conn);?>
               </div>
             </div>
             <div class="card-footer small"></div>
