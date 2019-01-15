@@ -12,4 +12,5 @@ Project-2 is a project from college, what contain in this repository is:
 Web:
 - install xampp and clone git into htdocs
 - import database in database folder
+- clone git from https://github.com/davidscotttufts/php-barcode.git
 - you're set, use admin and admin for login
