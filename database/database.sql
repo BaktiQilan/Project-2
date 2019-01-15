@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2019 at 06:22 AM
+-- Generation Time: Jan 15, 2019 at 02:05 AM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.1.12
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `proyek-2`
 --
+CREATE DATABASE IF NOT EXISTS `proyek-2` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `proyek-2`;
 
 -- --------------------------------------------------------
 
@@ -28,12 +30,14 @@ SET time_zone = "+00:00";
 -- Table structure for table `barang`
 --
 
-CREATE TABLE `barang` (
-  `kodebarang` int(11) NOT NULL,
+DROP TABLE IF EXISTS `barang`;
+CREATE TABLE IF NOT EXISTS `barang` (
+  `kodebarang` int(11) NOT NULL AUTO_INCREMENT,
   `namabarang` varchar(25) NOT NULL,
   `tanggalmasuk` date NOT NULL,
   `jumlah` int(11) NOT NULL,
-  `rak` int(11) NOT NULL
+  `rak` int(11) NOT NULL,
+  PRIMARY KEY (`kodebarang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -42,51 +46,23 @@ CREATE TABLE `barang` (
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(15) NOT NULL,
-  `password` varchar(25) NOT NULL,
-  `tanggal` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `password` varchar(60) NOT NULL,
+  `tanggal` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `tanggal`) VALUES
-(1, 'admin', 'admin', '2019-01-12');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `barang`
---
-ALTER TABLE `barang`
-  ADD PRIMARY KEY (`kodebarang`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `barang`
---
-ALTER TABLE `barang`
-  MODIFY `kodebarang` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', '2019-01-15'),
+(2, 'dirga', 'cdf36aa7733956385d6329a003e75966', '2019-01-15'),
+(3, 'bakti', '6b5c3b6e725a7703df483f2583215eef', '2019-01-15');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
