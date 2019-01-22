@@ -154,7 +154,7 @@
             <?php
             if(isset($_POST['submit'])){
               $textbarcode = strval($_POST['rak']) . $_POST['namabarang'];
-              echo "<div class='text-center'><img alt='Barcode' class='img-fluid' src='vendor/php-barcode/barcode.php?codetype=Code39&size=40&text=".$textbarcode."&print=true'/></div>";
+              echo "<div class='text-center'><img alt='Barcode' class='img-fluid' src='vendor/php-barcode/barcode.php?size=40&text=".$textbarcode."&print=true'/></div>";
             }
             ?>
             </div>
