@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(15) NOT NULL,
   `password` varchar(60) NOT NULL,
   `tanggal` date NOT NULL,
+  `tanggalupdate` date DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
