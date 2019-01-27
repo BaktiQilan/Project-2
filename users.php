@@ -19,9 +19,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
+    <meta name="description" content="Data Users">
     <meta name="author" content="Dirga and Bakti">
-    <title>Admin Page - Data Barang</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>Admin Page - Data User</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -48,7 +49,7 @@
 
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
-        <a href="users.php?q=logout"><button type="button" class="btn btn-primary btn-sm">Logout</button></a>
+      <button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#logoutModal">Logout</button>
       </ul>
 
     </nav>
@@ -154,15 +155,15 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Anda ingin logout?</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-body">Silahkan klik tombol "Logout" untuk mengakhiri session anda</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <a class="btn btn-primary" href="users.php?q=logout">Logout</a>
           </div>
         </div>
       </div>

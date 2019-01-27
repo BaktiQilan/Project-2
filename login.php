@@ -7,6 +7,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <title>Admin Login</title>
   <meta name="description" content="Login">
   <link rel="stylesheet" media="screen" href="css/login.css">

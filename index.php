@@ -23,6 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="HOME">
     <meta name="author" content="Dirga and Bakti">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <title>Admin Page - Home</title>
 
     <!-- Bootstrap core CSS-->
@@ -50,7 +51,7 @@
 
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
-        <a href="index.php?q=logout"><button type="button" class="btn btn-primary btn-sm">Logout</button></a>
+      <button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#logoutModal">Logout</button>
       </ul>
 
     </nav>
@@ -160,7 +161,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <?php $data->get_data_barang();?>
+                    <?php $data->get_data_barang_home();?>
                   </tbody>
                   </table>
               </div>
@@ -190,6 +191,25 @@
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fas fa-angle-up"></i>
     </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Anda ingin logout?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Silahkan klik tombol "Logout" untuk mengakhiri session anda</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="index.php?q=logout">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

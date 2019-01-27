@@ -1,7 +1,9 @@
-<?php 
+<?php
     session_start();
     include_once 'inc/class.user.php';
+    include_once 'inc/class.data.php';
     $user = new User();
+    $data = new Data();
 
     $id = $_SESSION['id'];
 
@@ -19,10 +21,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Create new user">
+    <meta name="description" content="Create a barcode">
     <meta name="author" content="Dirga and Bakti">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <title>Admin Page - Tambah User</title>
+    <title>Admin Page - Update Barang</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -83,7 +85,7 @@
             <span>Data User</span></a>
         </li>
 
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="register.php">
             <i class="fas fa-fw fa-user-plus"></i>
             <span>Tambah User</span></a>
@@ -99,44 +101,56 @@
             <li class="breadcrumb-item">
               <a href="index.html">Home</a>
             </li>
-            <li class="breadcrumb-item active">Tambah User</li>
+            <li class="breadcrumb-item active">Update Barang</li>
           </ol>
 
           <!-- Page Content -->
         <div class="card mb-3">
             <div class="card-header">
-              <i class="fas fa-fw fa-user-plus"></i> Tambah User</div>
+              <i class="fas fa-box"></i> Update Barang</div>
             <div class="card-body">
             <?php
+            $kodebarang=$_GET["kodebarang"];
+            $row = $data->cek_data_barang($kodebarang);
             if (isset($_POST['submit'])){
               extract($_POST);
-              $register = $user->reg_user($username, $password);
-              if ($register) {
-                  // Registration Success
-                  echo '<div class="alert alert-primary" role="alert">User berhasil dibuat!</div>';
+              $inputdata = $data->update_data_barang($kodebarang, $namabarang, $jumlahbarang, $rak);
+              if ($inputdata) {
+                echo '<div class="alert alert-primary" role="alert">Data Barang Telah Diubah</div>';
+                header( "refresh:2; url=data.php" ); 
               } else {
-                  // Registration Failed
-                  echo '<div class="alert alert-danger" role="alert">User gagal dibuat!</div>';
+                echo '<div class="alert alert-danger" role="alert">Data Barang Gagal Diubah</div>';
               }
             }
             ?>
-            <form action="" method="post">
+            <form action="" method="POST">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Nama User</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">Nama Barang:</span>
                     </div>
-                    <input type="text" class="form-control" name="username">
+                    <input type="text" class="form-control" name="namabarang" value="<?php echo $row["namabarang"]; ?>">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">Jumlah Barang:</span>
                     </div>
-                    <input type="password" class="form-control" name="password">
+                    <input type="text" class="form-control" name="jumlahbarang" value="<?php echo $row["jumlah"]; ?>">
                 </div>
-            <input type="submit" name="submit" value="Input" class="btn btn-primary">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Simpan Pada Rak:</span>
+                    <select class="form-control" name="rak">
+                      <option value="1" <?php if($row['rak'] == '1'){ echo "selected";} ?>>1</option>
+                      <option value="2" <?php if($row['rak'] == '2'){ echo "selected";} ?>>2</option>
+                      <option value="3" <?php if($row['rak'] == '3'){ echo "selected";} ?>>3</option>
+                    </select>
+                    </div>
+                </div>
+            <input type="submit" name="submit" value="Update" class="btn btn-primary" onclick="">
             </form>
             </div>
           </div>
+          
         </div>
         <!-- /.container-fluid -->
 
@@ -173,7 +187,7 @@
           <div class="modal-body">Silahkan klik tombol "Logout" untuk mengakhiri session anda</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="register.php?q=logout">Logout</a>
+            <a class="btn btn-primary" href="update_barang.php?q=logout">Logout</a>
           </div>
         </div>
       </div>

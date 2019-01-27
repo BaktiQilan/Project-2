@@ -21,10 +21,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Create a barcode">
+    <meta name="description" content="Page Input Barang">
     <meta name="author" content="Dirga and Bakti">
-
-    <title>Admin Page - Barcode</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>Admin Page - Input Barang</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -52,7 +52,7 @@
 
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
-          <a href="input.php?q=logout"><button type="button" class="btn btn-primary btn-sm">Logout</button></a>
+        <button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#logoutModal">Logout</button>
       </ul>
     </nav>
 
@@ -154,7 +154,7 @@
             <?php
             if(isset($_POST['submit'])){
               $textbarcode = strval($_POST['rak']) . $_POST['namabarang'];
-              echo "<div class='text-center'><img alt='Barcode' class='img-fluid' src='vendor/php-barcode/barcode.php?size=40&text=".$textbarcode."&print=true'/></div>";
+              echo "<div class='text-center'><a href='vendor/php-barcode/barcode.php?size=40&text=".$textbarcode."&print=true' download><img alt='Barcode' class='img-fluid' src='vendor/php-barcode/barcode.php?size=40&text=".$textbarcode."&print=true'/></a></div>";
             }
             ?>
             </div>
@@ -188,15 +188,15 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Anda ingin logout?</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-body">Silahkan klik tombol "Logout" untuk mengakhiri session anda</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <a class="btn btn-primary" href="input.php?q=logout">Logout</a>
           </div>
         </div>
       </div>

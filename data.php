@@ -23,6 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Dirga and Bakti">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <title>Admin Page - Data Barang</title>
 
     <!-- Bootstrap core CSS-->
@@ -50,7 +51,7 @@
 
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
-        <a href="data.php?q=logout"><button type="button" class="btn btn-primary btn-sm">Logout</button></a>
+        <button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#logoutModal">Logout</button>
       </ul>
 
     </nav>
@@ -110,6 +111,18 @@
               <i class="fas fa-table"></i>
               Data Barang</div>
             <div class="card-body">
+            <?php
+              if (isset($_GET['kodebarang'])){
+                $kodebarang=$_GET["kodebarang"];
+                $deletedata = $data->delete_data_barang($kodebarang);
+                if($deletedata){
+                  echo '<div class="alert alert-primary" role="alert">Data Barang Telah Dihapus, akan redirect dalam 5 detik</div>';
+                  header( "refresh:5; url=data.php" ); 
+                }else{
+                  echo '<div class="alert alert-danger" role="alert">Data Barang Gagal Dihapus</div>';
+                }
+              }
+            ?>
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
@@ -119,6 +132,7 @@
                         <th>Tanggal Masuk</th>
                         <th>Jumlah</th>
                         <th>Rak</th>
+                        <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -158,15 +172,34 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Anda ingin logout?</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-body">Silahkan klik tombol "Logout" untuk mengakhiri session anda</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <a class="btn btn-primary" href="data.php?q=logout">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Modal-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Anda ingin menghapus data?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Apakah anda yakin ingin menghapus data <?php $data->cek_delete_data_barang($kodebarang) ?></div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="data.php?q=logout">Logout</a>
           </div>
         </div>
       </div>

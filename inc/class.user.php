@@ -66,12 +66,13 @@
 		
 		$user_data = $result->fetch_array(MYSQLI_ASSOC);
 		echo $user_data['username'];
-		
 	}
+	
 	/*** Mengambil session ***/
 	public function get_session(){
 	    return $_SESSION['login'];
 	}
+
 	/*** User Logout ***/
 	public function user_logout() {
 	    $_SESSION['login'] = FALSE;
