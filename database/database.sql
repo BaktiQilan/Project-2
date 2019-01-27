@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS `barang` (
   `tanggalmasuk` date NOT NULL,
   `jumlah` int(11) NOT NULL,
   `rak` int(11) NOT NULL,
+  `tanggalupdate` date DEFAULT NULL,
   PRIMARY KEY (`kodebarang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -52,7 +53,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(15) NOT NULL,
   `password` varchar(60) NOT NULL,
   `tanggal` date NOT NULL,
-  `tanggalupdate` date DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
