@@ -1,3 +1,6 @@
 [submodule "Arduino-USB-Barcode-Scanner"]
 	path = Arduino-USB-Barcode-Scanner
 	url = https://github.com/DirgaBrajamusti/Arduino-USB-Barcode-Scanner
+[submodule "php-barcode"]
+	path = vendor/php-barcode
+	url = https://github.com/davidscotttufts/php-barcode
