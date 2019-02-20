@@ -15,11 +15,11 @@ Project-2 is a college project, what contain in this repository is:
 - MariaDB 10.1.29 or later or MySQL
 
 # How to setup:
-- Clone git into your development folder (E.g. *htdocs*)
+Clone git into your development folder (E.g. *htdocs*)
 ```sh
 $ git clone https://github.com/DirgaBrajamusti/Project-2.git
 ```
-- Initialize and update the submodules
+Initialize and update the submodules
 ```sh
 $ git submodule init && git submodule update
 ```
